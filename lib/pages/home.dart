@@ -17,7 +17,28 @@ class _HomeState extends State<Home> {
   void initState() {
     super.initState();
 
-    todolist.addAll(['By bred', 'Wash dishes', 'Выучить Dart']);
+    todolist.addAll(['Выучить Dart']);
+  }
+
+  void _menuOpen() {
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (BuildContext context) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text(menu),
+        ),
+        body: Row(
+          children: [
+            ElevatedButton(onPressed: (){
+              Navigator.pop(context);
+              Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+            }, child: Text(onMainMenu)),
+            const Padding(padding: EdgeInsets.only(left: 16)),
+            Text(simplMenu),
+          ],
+        )
+      );
+    }));
   }
 
   @override
@@ -27,6 +48,7 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         title: Text(brov),
         centerTitle: true,
+        actions: [IconButton(onPressed: _menuOpen, icon: mainIcn)],
       ),
       body: ListView.builder(
           itemCount: todolist.length,
